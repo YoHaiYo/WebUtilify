@@ -12,4 +12,7 @@ import NavBar from "./components/NavBar.vue";
 import Footer from "./components/Footer.vue";
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+body {
+}
+</style>
