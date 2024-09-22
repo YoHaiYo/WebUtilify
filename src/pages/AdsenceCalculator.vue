@@ -147,64 +147,141 @@ import { ref } from "vue";
 const monthlyPageViews = ref(50000); // Fixed value
 const category = ref("Finance");
 
-const revenueRates = {
-  Health: 0.00387,
-  Games: 0.005,
-  Science: 0.004,
-  Finance: 0.0174,
-  News: 0.006,
-  "Books and Literature": 0.0045,
-  "Beauty, Fitness": 0.0055,
-  "Real Estate": 0.0065,
-  "Judicial and Government": 0.003,
-  "Business, Industry": 0.007,
-  Shopping: 0.008,
-  Sports: 0.0045,
-  "Food and Beverage": 0.0055,
-  "Pets and Animals": 0.0035,
-  Travel: 0.006,
-  "Arts, Entertainment": 0.0045,
-  "Online Communities": 0.0038,
-  "People, Society": 0.004,
-  "Internet - Communications": 0.0039,
-  "Interior and Landscaping": 0.0042,
-  Automobiles: 0.0052,
-  Reference: 0.0033,
-  "Hobbies, Leisure": 0.0038,
-  "Employment, Education": 0.004,
-  "Computers and Electronics": 0.0061,
+// 조회수 1당 연수입 달러
+const yearRevenue = {
+  SouthAmerica: {
+    Health: 0.04644,
+    Games: 0.005,
+    Science: 0.004,
+    Finance: 0.0174,
+    News: 0.006,
+    "Books and Literature": 0.0045,
+    "Beauty, Fitness": 0.0055,
+    "Real Estate": 0.0065,
+    "Judicial and Government": 0.003,
+    "Business, Industry": 0.007,
+    Shopping: 0.008,
+    Sports: 0.0045,
+    "Food and Beverage": 0.0055,
+    "Pets and Animals": 0.0035,
+    Travel: 0.006,
+    "Arts, Entertainment": 0.0045,
+    "Online Communities": 0.0038,
+    "People, Society": 0.004,
+    "Internet - Communications": 0.0039,
+    "Interior and Landscaping": 0.0042,
+    Automobiles: 0.0052,
+    Reference: 0.0033,
+    "Hobbies, Leisure": 0.0038,
+    "Employment, Education": 0.004,
+    "Computers and Electronics": 0.0061,
+  },
+  NorthAmerica: {
+    Health: 0.2088,
+    Games: 0.022,
+    Science: 0.018,
+    Finance: 0.025,
+    News: 0.02,
+    "Books and Literature": 0.015,
+    "Beauty, Fitness": 0.0185,
+    "Real Estate": 0.02,
+    "Judicial and Government": 0.015,
+    "Business, Industry": 0.022,
+    Shopping: 0.025,
+    Sports: 0.018,
+    "Food and Beverage": 0.017,
+    "Pets and Animals": 0.015,
+    Travel: 0.02,
+    "Arts, Entertainment": 0.018,
+    "Online Communities": 0.015,
+    "People, Society": 0.016,
+    "Internet - Communications": 0.0155,
+    "Interior and Landscaping": 0.016,
+    Automobiles: 0.017,
+    Reference: 0.014,
+    "Hobbies, Leisure": 0.015,
+    "Employment, Education": 0.016,
+    "Computers and Electronics": 0.018,
+  },
+  AsiaPacific: {
+    Health: 0.18924,
+    Games: 0.017,
+    Science: 0.014,
+    Finance: 0.019,
+    News: 0.016,
+    "Books and Literature": 0.012,
+    "Beauty, Fitness": 0.0135,
+    "Real Estate": 0.015,
+    "Judicial and Government": 0.01,
+    "Business, Industry": 0.016,
+    Shopping: 0.018,
+    Sports: 0.014,
+    "Food and Beverage": 0.015,
+    "Pets and Animals": 0.012,
+    Travel: 0.017,
+    "Arts, Entertainment": 0.013,
+    "Online Communities": 0.012,
+    "People, Society": 0.013,
+    "Internet - Communications": 0.0125,
+    "Interior and Landscaping": 0.0135,
+    Automobiles: 0.014,
+    Reference: 0.011,
+    "Hobbies, Leisure": 0.012,
+    "Employment, Education": 0.013,
+    "Computers and Electronics": 0.015,
+  },
+  // 유럽 중동 아프리카
+  EMEA: {
+    Health: 0.06408,
+    Games: 0.006,
+    Science: 0.0045,
+    Finance: 0.007,
+    News: 0.006,
+    "Books and Literature": 0.0045,
+    "Beauty, Fitness": 0.005,
+    "Real Estate": 0.0055,
+    "Judicial and Government": 0.0035,
+    "Business, Industry": 0.0065,
+    Shopping: 0.007,
+    Sports: 0.0045,
+    "Food and Beverage": 0.005,
+    "Pets and Animals": 0.003,
+    Travel: 0.006,
+    "Arts, Entertainment": 0.0045,
+    "Online Communities": 0.0035,
+    "People, Society": 0.004,
+    "Internet - Communications": 0.0042,
+    "Interior and Landscaping": 0.0045,
+    Automobiles: 0.005,
+    Reference: 0.003,
+    "Hobbies, Leisure": 0.004,
+    "Employment, Education": 0.0038,
+    "Computers and Electronics": 0.0055,
+  },
 };
 
-// Define revenue variables
+// 지역별 연수입
 const southAmericaRevenue = ref(0);
 const northAmericaRevenue = ref(0);
 const asiaPacificRevenue = ref(0);
 const emeaRevenue = ref(0);
 
 const calculateRevenue = () => {
-  const annualViews = monthlyPageViews.value * 12;
+  const annualViews = monthlyPageViews.value * 1;
 
-  // Calculate annual revenue for each region
+  // Calculate annual revenue for each region based on selected category
   southAmericaRevenue.value = (
-    annualViews *
-    revenueRates[category.value] *
-    0.00387
+    annualViews * yearRevenue.SouthAmerica[category.value]
   ).toFixed(0);
   northAmericaRevenue.value = (
-    annualViews *
-    revenueRates[category.value] *
-    0.0174
+    annualViews * yearRevenue.NorthAmerica[category.value]
   ).toFixed(0);
   asiaPacificRevenue.value = (
-    annualViews *
-    revenueRates[category.value] *
-    0.01577
+    annualViews * yearRevenue.AsiaPacific[category.value]
   ).toFixed(0);
-  emeaRevenue.value = (
-    annualViews *
-    revenueRates[category.value] *
-    0.00534
-  ).toFixed(0);
+  emeaRevenue.value = (annualViews * yearRevenue.EMEA[category.value]).toFixed(
+    0
+  );
 };
 
 const formatCurrency = (value) => {

@@ -16,3 +16,7 @@ https://fontawesome.com/search?o=r&m=free
     style="font-size: 16"
   />
 ```
+
+### 작업 아이디어
+
+- 에드센스 계산기에 환율 api 달아서 실시간환율로 수익 원, 엔, 유로 환율 보여주기
