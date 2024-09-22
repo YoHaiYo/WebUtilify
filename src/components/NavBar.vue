@@ -6,8 +6,9 @@
     <div class="flex justify-between items-center w-full">
       <!-- 로고 -->
       <div class="md:w-1/3">
-        <router-link class="block max-w-max" to="/">
+        <router-link class="flex items-center max-w-max" to="/">
           <img class="h-8" :src="logoPath" alt="Logo" />
+          <h1 class="logo-text">WebUtilify</h1>
         </router-link>
       </div>
       <!-- 네비메뉴 -->
@@ -49,8 +50,9 @@
       <nav class="relative p-6 h-full overflow-y-auto">
         <div class="flex flex-col h-full">
           <!-- 로고 -->
-          <a class="inline-block mb-6" href="/">
+          <a class="inline-flex items-center mb-6" href="/">
             <img class="h-8" :src="logoPath" alt="Logo" />
+            <h1 class="logo-text">WebUtilify</h1>
           </a>
           <!-- 모바일 네비 메뉴 -->
           <ul class="space-y-4">
@@ -94,7 +96,7 @@ import { ref } from "vue";
 const isMenuOpen = ref(false);
 
 // 로고 이미지 경로
-const logoPath = "/src/assets/svg/flex-ui-violet-light.svg";
+const logoPath = "/src/assets/webutilify-logo.png";
 
 // 메뉴 아이템들 (이름, 경로 관리)
 const menuItems = [
@@ -106,6 +108,12 @@ const menuItems = [
 </script>
 
 <style scoped>
+.logo-text {
+  color: rgb(230, 230, 230);
+  font-weight: bold;
+  font-size: 1.8rem;
+  margin-left: 10px;
+}
 /* 모바일 네비게이션의 부드러운 전환을 위해 transform과 translate 사용 */
 .navbar-menu {
   transform: translateX(-100%);
