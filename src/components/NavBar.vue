@@ -1,53 +1,24 @@
-<!--
-md: 기준으로 반응형 처리함. 
--->
 <template>
   <!--- PC뷰 -->
-  <nav class="hidden md:flex justify-between p-6 px-4">
+  <nav
+    class="hidden md:flex justify-between items-center p-6 px-4 bg-gray-900 shadow-lg"
+  >
     <div class="flex justify-between items-center w-full">
       <!-- 로고 -->
       <div class="md:w-1/3">
         <router-link class="block max-w-max" to="/">
-          <img
-            class="h-8"
-            src="../assets/svg/flex-ui-violet-light.svg"
-            alt=""
-          />
+          <img class="h-8" :src="logoPath" alt="Logo" />
         </router-link>
       </div>
       <!-- 네비메뉴 -->
-      <div class="md:block md:w-1/3">
-        <ul class="flex justify-center">
-          <li class="mr-12">
+      <div class="md:w-2/3">
+        <ul class="flex justify-center space-x-8">
+          <li v-for="menuItem in menuItems" :key="menuItem.name">
             <a
-              class="text-coolGray-500 hover:text-coolGray-900 font-medium"
-              href="/DjangoPathMaker"
+              class="text-gray-300 text-lg hover:text-white transition-colors duration-200 font-medium"
+              :href="menuItem.path"
             >
-              DjangoPathMaker
-            </a>
-          </li>
-          <li class="mr-12">
-            <a
-              class="text-coolGray-500 hover:text-coolGray-900 font-medium"
-              href="#"
-            >
-              예정1
-            </a>
-          </li>
-          <li class="mr-12">
-            <a
-              class="text-coolGray-500 hover:text-coolGray-900 font-medium"
-              href="#"
-            >
-              예정2
-            </a>
-          </li>
-          <li>
-            <a
-              class="text-coolGray-500 hover:text-coolGray-900 font-medium"
-              href="#"
-            >
-              예정3
+              {{ menuItem.name }}
             </a>
           </li>
         </ul>
@@ -55,80 +26,60 @@ md: 기준으로 반응형 처리함.
     </div>
   </nav>
 
-  <!-- 모바일뷰 -->
-  <!-- 햄버거바 버튼 -->
-  <button @click="isMenuOpen = !isMenuOpen" class="md:hidden p-4">
+  <!-- 모바일 뷰 햄버거 버튼 -->
+  <button
+    @click="isMenuOpen = !isMenuOpen"
+    class="md:hidden p-4 text-gray-300 focus:outline-none"
+  >
     <font-awesome-icon
       icon="fa-bars"
-      class="text-gray-500"
-      style="font-size: 35; font-weight: bold"
+      class="text-gray-300"
+      style="font-size: 28px; font-weight: bold"
     />
   </button>
 
   <!-- 모바일 네비바 -->
   <div
-    class="navbar-menu fixed top-0 left-0 z-50 w-full h-full bg-coolGray-900 bg-opacity-50"
+    class="navbar-menu fixed inset-0 z-50 w-full h-full bg-gray-900 bg-opacity-80 transform transition-transform duration-300 ease-in-out"
     :class="{ 'translate-x-0': isMenuOpen, '-translate-x-full': !isMenuOpen }"
   >
     <div
-      class="fixed top-0 left-0 bottom-0 w-full w-4/6 max-w-xs bg-white transition-transform duration-300 ease-in-out"
+      class="fixed top-0 left-0 bottom-0 w-4/6 max-w-xs bg-gray-800 shadow-lg transition-transform duration-300 ease-in-out"
     >
       <nav class="relative p-6 h-full overflow-y-auto">
-        <div class="flex flex-col justify-between h-full">
-          <a class="inline-block" href="#">
-            <img
-              class="h-8"
-              src="../assets/svg/flex-ui-violet-light.svg"
-              alt=""
-            />
+        <div class="flex flex-col h-full">
+          <!-- 로고 -->
+          <a class="inline-block mb-6" href="/">
+            <img class="h-8" :src="logoPath" alt="Logo" />
           </a>
-          <ul class="py-6">
-            <li>
+          <!-- 모바일 네비 메뉴 -->
+          <ul class="space-y-4">
+            <li v-for="menuItem in menuItems" :key="menuItem.name">
               <a
-                class="block py-3 px-4 text-coolGray-500 hover:text-coolGray-900 font-medium hover:bg-coolGray-50 rounded-md"
-                href="/DjangoPathMaker"
+                class="block text-lg py-3 px-4 text-gray-300 hover:text-white transition-colors duration-200 font-medium hover:bg-gray-700 rounded-md"
+                :href="menuItem.path"
               >
-                DjangoPathMaker
-              </a>
-            </li>
-            <li>
-              <a
-                class="block py-3 px-4 text-coolGray-500 hover:text-coolGray-900 font-medium hover:bg-coolGray-50 rounded-md"
-                href="#"
-              >
-                Features
-              </a>
-            </li>
-            <li>
-              <a
-                class="block py-3 px-4 text-coolGray-500 hover:text-coolGray-900 font-medium hover:bg-coolGray-50 rounded-md"
-                href="#"
-              >
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                class="block py-3 px-4 text-coolGray-500 hover:text-coolGray-900 font-medium hover:bg-coolGray-50 rounded-md"
-                href="#"
-              >
-                Resources
+                {{ menuItem.name }}
               </a>
             </li>
           </ul>
         </div>
       </nav>
-      <button @click="isMenuOpen = false" class="absolute top-5 right-3 p-4">
+      <!-- 닫기 버튼 -->
+      <button
+        @click="isMenuOpen = false"
+        class="absolute top-5 right-3 p-4 text-gray-300"
+      >
         <svg
-          width="12"
-          height="12"
-          viewBox="0 0 12 12"
-          fill="none"
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M6.94004 6L11.14 1.80667C11.2656 1.68113 11.3361 1.51087 11.3361 1.33333C11.3361 1.1558 11.2656 0.985537 11.14 0.860002C11.0145 0.734466 10.8442 0.66394 10.6667 0.66394C10.4892 0.66394 10.3189 0.734466 10.1934 0.860002L6.00004 5.06L1.80671 0.860002C1.68117 0.734466 1.51091 0.663941 1.33337 0.663941C1.15584 0.663941 0.985576 0.734466 0.860041 0.860002C0.734505 0.985537 0.66398 1.1558 0.66398 1.33333C0.66398 1.51087 0.734505 1.68113 0.860041 1.80667L5.06004 6L0.860041 10.1933C0.797555 10.2553 0.747959 10.329 0.714113 10.4103C0.680267 10.4915 0.662842 10.5787 0.662842 10.6667C0.662842 10.7547 0.680267 10.8418 0.714113 10.9231C0.747959 11.0043 0.797555 11.078 0.860041 11.14C0.922016 11.2025 0.99575 11.2521 1.07699 11.2859C1.15823 11.3198 1.24537 11.3372 1.33337 11.3372C1.42138 11.3372 1.50852 11.3198 1.58976 11.2859C1.671 11.2521 1.74473 11.2025 1.80671 11.14L6.00004 6.94L10.1934 11.14C10.2554 11.2025 10.3291 11.2521 10.4103 11.2859C10.4916 11.3198 10.5787 11.3372 10.6667 11.3372C10.7547 11.3372 10.8419 11.3198 10.9231 11.2859C11.0043 11.2521 11.0781 11.2025 11.14 11.14C11.2025 11.078 11.2521 11.0043 11.286 10.9231C11.3198 10.8418 11.3372 10.7547 11.3372 10.6667C11.3372 10.5787 11.3198 10.4915 11.286 10.4103C11.2521 10.329 11.2025 10.2553 11.14 10.1933L6.94004 6Z"
-            fill="#556987"
+            fill-rule="evenodd"
+            d="M11.293 4.293a1 1 0 011.414 1.414L9.414 9l3.293 3.293a1 1 0 01-1.414 1.414L8 10.414l-3.293 3.293a1 1 0 01-1.414-1.414L6.586 9 3.293 5.707a1 1 0 011.414-1.414L8 7.586l3.293-3.293z"
           />
         </svg>
       </button>
@@ -137,7 +88,46 @@ md: 기준으로 반응형 처리함.
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
+
+// 메뉴 상태
+const isMenuOpen = ref(false);
+
+// 로고 이미지 경로
+const logoPath = "/src/assets/svg/flex-ui-violet-light.svg";
+
+// 메뉴 아이템들 (이름, 경로 관리)
+const menuItems = [
+  { name: "DjangoPathMaker", path: "/DjangoPathMaker" },
+  { name: "예정1", path: "#" },
+  { name: "예정2", path: "#" },
+  { name: "예정3", path: "#" },
+];
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped>
+/* 모바일 네비게이션의 부드러운 전환을 위해 transform과 translate 사용 */
+.navbar-menu {
+  transform: translateX(-100%);
+}
+
+/* 햄버거 버튼의 색상 */
+button {
+  transition: transform 0.3s ease;
+}
+
+/* PC 네비게이션 */
+nav {
+  background-color: #1f2937;
+  border-bottom: 1px solid #374151;
+}
+
+/* 모바일 메뉴 슬라이드 애니메이션 */
+.navbar-menu.translate-x-0 {
+  transform: translateX(0);
+}
+
+.navbar-menu.-translate-x-full {
+  transform: translateX(-100%);
+}
+</style>
