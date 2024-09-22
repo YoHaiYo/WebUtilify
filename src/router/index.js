@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import DjangoPathMaker from "../pages/DjangoPathMaker.vue";
+import AdsenceCalculator from "../pages/AdsenceCalculator.vue";
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: "/DjangoPathMaker",
     name: "DjangoPathMaker",
     component: DjangoPathMaker,
+  },
+  {
+    path: "/AdsenceCalculator",
+    name: "AdsenceCalculator",
+    component: AdsenceCalculator,
   },
 ];
 
