@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import DjangoPathMaker from "../pages/DjangoPathMaker.vue";
-import Product from "../pages/Product.vue";
 
 const routes = [
   {
@@ -13,11 +12,6 @@ const routes = [
     path: "/DjangoPathMaker",
     name: "DjangoPathMaker",
     component: DjangoPathMaker,
-  },
-  {
-    path: "/product",
-    name: "Product",
-    component: Product,
   },
 ];
 
