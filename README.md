@@ -1,8 +1,6 @@
-### 세팅목록
+### 작업 유용링크
 
-- navbar등 페이지 구조
-- 테일윈드
-- vercel 정적라우팅
+- 테일윈드템플릿 : https://tailwindflex.com/
 
 ### vue에서 폰트어썸사용
 
