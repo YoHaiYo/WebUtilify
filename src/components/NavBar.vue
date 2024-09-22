@@ -96,7 +96,8 @@ import { ref } from "vue";
 const isMenuOpen = ref(false);
 
 // 로고 이미지 경로
-const logoPath = "/src/assets/webutilify-logo.png";
+const logoPath =
+  "https://raw.githubusercontent.com/YoHaiYo/WebUtilify/refs/heads/main/src/assets/webutilify-logo.png";
 
 // 메뉴 아이템들 (이름, 경로 관리)
 const menuItems = [
