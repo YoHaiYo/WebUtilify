@@ -28,13 +28,14 @@
         <div class="mt-16">
           <!-- Features 섹션 제목 -->
           <h2 class="text-3xl font-bold text-center text-white mb-8">
-            Features
+            Select WebUtilify List !
           </h2>
           <!-- Features 리스트 -->
           <div class="flex flex-wrap justify-center gap-8">
-            <!-- Django Path Maker 카드 -->
-            <div
-              class="max-w-xs bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+            <!-- 카드 시작 -->
+            <a
+              href="/DjangoPathMaker"
+              class="wu-card max-w-xs bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105"
             >
               <h3 class="text-xl font-semibold text-white mb-2">
                 Django Path Maker
@@ -43,43 +44,20 @@
                 Easily convert HTML paths to Django static paths, making your
                 templates cleaner and more maintainable.
               </p>
-            </div>
-            <!-- HTML Formatter 카드 -->
-            <div
-              class="max-w-xs bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+            </a>
+            <!-- 카드 시작 -->
+            <a
+              href="/AdsenceCalculator"
+              class="wu-card max-w-xs bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105"
             >
               <h3 class="text-xl font-semibold text-white mb-2">
-                HTML Formatter
+                Adsence Revenue Calculator
               </h3>
               <p class="text-gray-400">
-                Automatically format your HTML code to ensure it’s clean and
-                well-structured for better readability.
+                You can calculate the annual, monthly, and daily returns for
+                Edsense.
               </p>
-            </div>
-            <!-- CSS Minifier 카드 -->
-            <div
-              class="max-w-xs bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
-            >
-              <h3 class="text-xl font-semibold text-white mb-2">
-                CSS Minifier
-              </h3>
-              <p class="text-gray-400">
-                Minimize your CSS files to improve loading times and enhance
-                performance without sacrificing quality.
-              </p>
-            </div>
-            <!-- JavaScript Bundler 카드 -->
-            <div
-              class="max-w-xs bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
-            >
-              <h3 class="text-xl font-semibold text-white mb-2">
-                JavaScript Bundler
-              </h3>
-              <p class="text-gray-400">
-                Bundle and optimize your JavaScript files for faster execution
-                and improved user experience.
-              </p>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -98,8 +76,10 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
-/* 버튼에 호버 시 약간의 확대 애니메이션 추가 */
-a:hover {
-  /* transform: scale(1.05); */
+/* 카드 호버 시 배경색 변화 및 확대 효과 */
+.wu-card:hover {
+  background: linear-gradient(145deg, #be185dc4, #7e22cead);
+  transform: scale(1.05); /* 크기 확대 */
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 </style>

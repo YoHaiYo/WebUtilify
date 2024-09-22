@@ -102,9 +102,7 @@ const logoPath =
 // 메뉴 아이템들 (이름, 경로 관리)
 const menuItems = [
   { name: "DjangoPathMaker", path: "/DjangoPathMaker" },
-  { name: "예정1", path: "#" },
-  { name: "예정2", path: "#" },
-  { name: "예정3", path: "#" },
+  { name: "AdsenceCalculator", path: "/AdsenceCalculator" },
 ];
 </script>
 
