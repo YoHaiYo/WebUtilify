@@ -21,9 +21,9 @@ md: 기준으로 반응형 처리함.
           <li class="mr-12">
             <a
               class="text-coolGray-500 hover:text-coolGray-900 font-medium"
-              href="/product"
+              href="/DjangoPathMaker"
             >
-              Product
+              DjangoPathMaker
             </a>
           </li>
           <li class="mr-12">
@@ -31,7 +31,7 @@ md: 기준으로 반응형 처리함.
               class="text-coolGray-500 hover:text-coolGray-900 font-medium"
               href="#"
             >
-              Features
+              예정1
             </a>
           </li>
           <li class="mr-12">
@@ -39,7 +39,7 @@ md: 기준으로 반응형 처리함.
               class="text-coolGray-500 hover:text-coolGray-900 font-medium"
               href="#"
             >
-              Resources
+              예정2
             </a>
           </li>
           <li>
@@ -47,7 +47,7 @@ md: 기준으로 반응형 처리함.
               class="text-coolGray-500 hover:text-coolGray-900 font-medium"
               href="#"
             >
-              Pricing
+              예정3
             </a>
           </li>
         </ul>
@@ -86,9 +86,9 @@ md: 기준으로 반응형 처리함.
             <li>
               <a
                 class="block py-3 px-4 text-coolGray-500 hover:text-coolGray-900 font-medium hover:bg-coolGray-50 rounded-md"
-                href="#"
+                href="/DjangoPathMaker"
               >
-                Product
+                DjangoPathMaker
               </a>
             </li>
             <li>
@@ -116,40 +116,6 @@ md: 기준으로 반응형 처리함.
               </a>
             </li>
           </ul>
-          <div class="flex flex-wrap">
-            <div class="w-full mb-2">
-              <router-link
-                class="mb-2 inline-block py-2 px-4 w-full text-sm leading-5 text-coolGray-500 hover:text-coolGray-900 bg-transparent font-medium text-center rounded-md"
-                to="/login"
-                >Login</router-link
-              >
-            </div>
-            <div class="w-full">
-              <router-link
-                class="inline-block py-2 px-4 w-full text-sm leading-5 text-white bg-violet-500 hover:bg-violet-600 font-medium text-center focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50 rounded-md"
-                to="/signup"
-                >Sign Up</router-link
-              >
-            </div>
-            <span
-              class="mb-2 inline-block py-2 px-4 w-full text-sm leading-5 text-coolGray-500 hover:text-coolGray-900 bg-transparent font-medium text-center rounded-md"
-              >Hello,
-            </span>
-            <div class="w-full mb-2">
-              <router-link
-                class="inline-block py-2 px-4 w-full text-sm leading-5 text-white bg-violet-500 hover:bg-violet-600 font-medium text-center focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50 rounded-md"
-                to="/notes"
-                >dashboard</router-link
-              >
-            </div>
-            <div class="w-full mb-2">
-              <a
-                class="inline-block py-2 px-4 w-full text-sm leading-5 text-white bg-violet-500 hover:bg-violet-600 font-medium text-center focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50 rounded-md"
-              >
-                LogOut
-              </a>
-            </div>
-          </div>
         </div>
       </nav>
       <button @click="isMenuOpen = false" class="absolute top-5 right-3 p-4">

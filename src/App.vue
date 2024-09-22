@@ -4,7 +4,7 @@
   <!--- 메인 -->
   <router-view></router-view>
   <!-- footer -->
-  <Footer />
+  <!-- <Footer /> -->
 </template>
 
 <script setup>
