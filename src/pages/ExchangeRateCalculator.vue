@@ -3,7 +3,6 @@
     <div class="container mx-auto p-4 flex-grow">
       <h1
         class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 mb-4"
-        style="height: 50px"
       >
         Exchange Rate Calculator
       </h1>
