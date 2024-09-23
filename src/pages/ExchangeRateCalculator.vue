@@ -140,6 +140,16 @@ fetchCurrencyRates(); // 초기화 시 첫 번째 화폐의 환율 가져오기
 .right-panel {
   height: calc(80vh - 56px);
 }
+@media (max-width: 990px) {
+  .left-panel {
+    height: auto;
+    min-height: 50vh;
+  }
+  .right-panel {
+    height: auto;
+    min-height: 50vh;
+  }
+}
 
 input[type="number"],
 select {

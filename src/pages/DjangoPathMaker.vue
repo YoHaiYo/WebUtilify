@@ -113,6 +113,16 @@ watch(inputHtml, processHtml);
 .right-panel {
   height: calc(80vh - 56px);
 }
+@media (max-width: 990px) {
+  .left-panel {
+    height: auto;
+    min-height: 50vh;
+  }
+  .right-panel {
+    height: auto;
+    min-height: 50vh;
+  }
+}
 
 textarea,
 pre {
