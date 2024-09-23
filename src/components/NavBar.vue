@@ -103,6 +103,7 @@ const logoPath =
 const menuItems = [
   { name: "DjangoPathMaker", path: "/DjangoPathMaker" },
   { name: "AdsenceCalculator", path: "/AdsenceCalculator" },
+  { name: "ExchangeRateCalculator", path: "/ExchangeRateCalculator" },
 ];
 </script>
 

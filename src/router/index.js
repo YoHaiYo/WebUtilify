@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import DjangoPathMaker from "../pages/DjangoPathMaker.vue";
 import AdsenceCalculator from "../pages/AdsenceCalculator.vue";
+import ExchangeRateCalculator from "../pages/ExchangeRateCalculator.vue";
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: "/AdsenceCalculator",
     name: "AdsenceCalculator",
     component: AdsenceCalculator,
+  },
+  {
+    path: "/ExchangeRateCalculator",
+    name: "ExchangeRateCalculator",
+    component: ExchangeRateCalculator,
   },
 ];
 
