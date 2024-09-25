@@ -21,17 +21,29 @@
             <h2 class="text-xl font-semibold text-gray-300 mb-2">Input</h2>
           </div>
 
-          <label class="text-gray-300" for="from-currency-select"
-            >From Currency:</label
-          >
+          <label class="text-gray-300">From Currency:</label>
+          <!-- From : 실제화폐  -->
           <select
-            id="from-currency-select"
             v-model="fromCurrency"
             @change="fetchCurrencyRates"
             class="mt-2 p-3 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg"
           >
             <option
               v-for="(currency, code) in data.fiatCurrencies"
+              :key="code"
+              :value="code"
+            >
+              {{ currency.name }} ({{ currency.symbol }})
+            </option>
+          </select>
+          <!-- From : 가상화폐  -->
+          <select
+            v-model="fromCurrency"
+            @change="fetchCurrencyRates"
+            class="mt-2 p-3 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg"
+          >
+            <option
+              v-for="(currency, code) in data.cryptocurrencies"
               :key="code"
               :value="code"
             >
@@ -48,16 +60,27 @@
             placeholder="Enter amount"
           />
 
-          <label class="text-gray-300 mt-4" for="to-currency-select"
-            >To Currency:</label
-          >
+          <label class="text-gray-300 mt-4">To Currency:</label>
+          <!-- TO : 현실화폐 -->
           <select
-            id="to-currency-select"
             v-model="toCurrency"
             class="mt-2 p-3 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg"
           >
             <option
               v-for="(currency, code) in data.fiatCurrencies"
+              :key="code"
+              :value="code"
+            >
+              {{ currency.name }} ({{ currency.symbol }})
+            </option>
+          </select>
+          <!-- TO : 가상화폐 -->
+          <select
+            v-model="toCurrency"
+            class="mt-2 p-3 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg"
+          >
+            <option
+              v-for="(currency, code) in data.cryptocurrencies"
               :key="code"
               :value="code"
             >
@@ -91,8 +114,8 @@
 import { ref, watch } from "vue";
 import { data } from "../utils/currency"; // 통화코드 데이터
 
-const fromCurrency = ref(Object.keys(data.fiatCurrencies)[0]); // 달러
-const toCurrency = ref(Object.keys(data.fiatCurrencies)[4]); // 원
+const fromCurrency = ref("usd"); // 달러
+const toCurrency = ref("krw"); // 원
 const fiatAmount = ref(1); // 초기 Amount
 const conversionResult = ref("");
 const date = ref(""); // 날짜 기준
@@ -114,6 +137,21 @@ const fetchCurrencyRates = async () => {
 
 // 결과보여줄부분
 const updateConversion = () => {
+  const rate = rates.value[toCurrency.value];
+  if (!isNaN(fiatAmount.value) && rate) {
+    const result = (fiatAmount.value * rate).toFixed(2);
+    conversionResult.value = `${fiatAmount.value} ${
+      data["cryptocurrencies"][fromCurrency.value].symbol
+    } (${data["cryptocurrencies"][fromCurrency.value].name})
+    = ${result} ${data["cryptocurrencies"][toCurrency.value].symbol} (${
+      data["cryptocurrencies"][toCurrency.value].name
+    })`;
+  } else {
+    conversionResult.value = "Invalid input or currency rate not available.";
+  }
+};
+
+const updateConversionReal = () => {
   const rate = rates.value[toCurrency.value];
   if (!isNaN(fiatAmount.value) && rate) {
     const result = (fiatAmount.value * rate).toFixed(2);
