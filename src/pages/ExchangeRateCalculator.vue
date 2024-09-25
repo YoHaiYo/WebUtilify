@@ -14,9 +14,7 @@
       </div>
 
       <div class="flex flex-col lg:flex-row overflow-hidden">
-        <div
-          class="left-panel bg-gray-800 border-r-2 border-gray-700 p-4 flex flex-col w-full lg:w-1/2"
-        >
+        <div class="left-panel bg-gray-800 p-4 flex flex-col w-full lg:w-1/2">
           <div class="wu-height flex justify-between items-center mb-2">
             <h2 class="text-xl font-semibold text-gray-300 mb-2">Input</h2>
           </div>
@@ -173,9 +171,17 @@ fetchCurrencyRates(); // 초기화 시 첫 번째 화폐의 환율 가져오기
 </script>
 
 <style scoped>
+.left-panel {
+  margin-right: 5px;
+}
+.right-panel {
+  margin-left: 5px;
+}
 .left-panel,
 .right-panel {
-  height: calc(80vh - 56px);
+  /* height: calc(80vh - 56px); */
+  border: 1px solid #b6b6b6ad;
+  border-radius: 0.5rem;
 }
 @media (max-width: 990px) {
   .left-panel {
