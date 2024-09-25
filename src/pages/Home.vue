@@ -58,6 +58,20 @@
                 Edsense.
               </p>
             </a>
+            <!-- 카드 시작 -->
+            <a
+              href="/ExchangeRateCalculator"
+              class="wu-card max-w-xs bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105"
+            >
+              <h3 class="text-xl font-semibold text-white mb-2">
+                Exchange Rate Calculator
+              </h3>
+              <p class="text-gray-400">
+                This tool calculates real-time exchange rates between selected
+                fiat currencies and popular cryptocurrencies, allowing you to
+                easily and quickly convert values!
+              </p>
+            </a>
           </div>
         </div>
       </div>

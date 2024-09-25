@@ -2,14 +2,16 @@
   <div class="flex flex-col h-screen">
     <div class="container mx-auto p-4 flex-grow">
       <h1
-        class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 mb-4"
+        class="pb-2 pl-3 text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 mb-4"
       >
         Exchange Rate Calculator
       </h1>
 
       <div class="bg-gray-800 p-6 rounded-lg mb-6">
         <p class="mb-2 text-lg text-gray-300">
-          This tool calculates the conversion rates for selected currencies.
+          This tool calculates real-time exchange rates between selected fiat
+          currencies and popular cryptocurrencies, allowing you to easily and
+          quickly convert values!
         </p>
       </div>
 
@@ -19,8 +21,8 @@
             <h2 class="text-xl font-semibold text-gray-300 mb-2">Input</h2>
           </div>
 
-          <label class="text-gray-300">From Currency:</label>
           <!-- From : 실제화폐  -->
+          <label class="text-gray-300">From Fiat Currency:</label>
           <select
             v-model="fromCurrency"
             @change="fetchCurrencyRates"
@@ -35,6 +37,7 @@
             </option>
           </select>
           <!-- From : 가상화폐  -->
+          <label class="text-gray-300 mt-2">From Crypto Currency:</label>
           <select
             v-model="fromCurrency"
             @change="fetchCurrencyRates"
@@ -58,8 +61,8 @@
             placeholder="Enter amount"
           />
 
-          <label class="text-gray-300 mt-4">To Currency:</label>
           <!-- TO : 현실화폐 -->
+          <label class="text-gray-300 mt-4">To Fiat Currency:</label>
           <select
             v-model="toCurrency"
             class="mt-2 p-3 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg"
@@ -73,6 +76,7 @@
             </option>
           </select>
           <!-- TO : 가상화폐 -->
+          <label class="text-gray-300 mt-2">To Crypto Currency:</label>
           <select
             v-model="toCurrency"
             class="mt-2 p-3 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg"
@@ -135,29 +139,22 @@ const fetchCurrencyRates = async () => {
 
 // 결과보여줄부분
 const updateConversion = () => {
-  const rate = rates.value[toCurrency.value];
-  if (!isNaN(fiatAmount.value) && rate) {
-    const result = (fiatAmount.value * rate).toFixed(2);
-    conversionResult.value = `${fiatAmount.value} ${
-      data["cryptocurrencies"][fromCurrency.value].symbol
-    } (${data["cryptocurrencies"][fromCurrency.value].name})
-    = ${result} ${data["cryptocurrencies"][toCurrency.value].symbol} (${
-      data["cryptocurrencies"][toCurrency.value].name
-    })`;
-  } else {
-    conversionResult.value = "Invalid input or currency rate not available.";
-  }
-};
+  const fromIsCrypto = data.cryptocurrencies[fromCurrency.value] !== undefined;
+  const toIsCrypto = data.cryptocurrencies[toCurrency.value] !== undefined;
 
-const updateConversionReal = () => {
+  const fromData = fromIsCrypto
+    ? data.cryptocurrencies[fromCurrency.value]
+    : data.fiatCurrencies[fromCurrency.value];
+
+  const toData = toIsCrypto
+    ? data.cryptocurrencies[toCurrency.value]
+    : data.fiatCurrencies[toCurrency.value];
+
   const rate = rates.value[toCurrency.value];
+
   if (!isNaN(fiatAmount.value) && rate) {
     const result = (fiatAmount.value * rate).toFixed(2);
-    conversionResult.value = `${fiatAmount.value} ${
-      data.fiatCurrencies[fromCurrency.value].symbol
-    } = ${result} ${data.fiatCurrencies[toCurrency.value].symbol} (${
-      data.fiatCurrencies[toCurrency.value].name
-    })`;
+    conversionResult.value = `${fiatAmount.value} ${fromData.symbol} (${fromData.name}) = ${result} ${toData.symbol} (${toData.name})`;
   } else {
     conversionResult.value = "Invalid input or currency rate not available.";
   }
@@ -187,10 +184,13 @@ fetchCurrencyRates(); // 초기화 시 첫 번째 화폐의 환율 가져오기
   .left-panel {
     height: auto;
     min-height: 50vh;
+    margin-right: 0;
   }
   .right-panel {
+    margin-top: 10px;
     height: auto;
     min-height: 50vh;
+    margin-left: 0;
   }
 }
 
