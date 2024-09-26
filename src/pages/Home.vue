@@ -67,9 +67,9 @@
                 Exchange Rate Calculator
               </h3>
               <p class="text-gray-400">
-                This tool calculates real-time exchange rates between selected
-                fiat currencies and popular cryptocurrencies, allowing you to
-                easily and quickly convert values!
+                Convert real-time exchange rates between fiat and
+                cryptocurrencies, and view a comparison chart with major
+                currencies like USD, EUR, and KRW.
               </p>
             </a>
           </div>

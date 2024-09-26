@@ -13,8 +13,10 @@
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@supabase/supabase-js": "^2.44.2",
+    "chart.js": "^4.4.4",
     "sass": "^1.77.6",
     "vue": "^3.4.21",
+    "vue-chartjs": "^5.3.1",
     "vue-meta": "^2.4.0",
     "vue-router": "^4.0.13"
   },

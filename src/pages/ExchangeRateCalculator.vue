@@ -11,7 +11,9 @@
         <p class="mb-2 text-lg text-gray-300">
           This tool calculates real-time exchange rates between selected fiat
           currencies and popular cryptocurrencies, allowing you to easily and
-          quickly convert values!
+          quickly convert values. Additionally, it displays a comparison chart
+          that highlights the exchange rates of the selected currency against
+          other major currencies like USD, EUR, KRW, and more.
         </p>
       </div>
 
@@ -106,6 +108,8 @@
           </div>
           <p class="text-violet-400 mb-3">(Calculated as of {{ date }})</p>
           <p class="text-gray-200">{{ conversionResult }}</p>
+          <!-- 막대 그래프 추가 -->
+          <canvas id="comparisonChart" width="400" height="200"></canvas>
         </div>
       </div>
     </div>
@@ -113,31 +117,57 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { data } from "../utils/currency"; // 통화코드 데이터
+import { ref, watch, onMounted } from "vue";
+import { data } from "../utils/currency";
+import { Chart } from "chart.js/auto";
 
-const fromCurrency = ref("usd"); // 달러
-const toCurrency = ref("krw"); // 원
-const fiatAmount = ref(1); // 초기 Amount
+const fromCurrency = ref("usd");
+const toCurrency = ref("krw");
+const fiatAmount = ref(1);
 const conversionResult = ref("");
-const date = ref(""); // 날짜 기준
-
+const date = ref("");
 const rates = ref({});
+const majorCurrencies = ref(["usd", "eur", "krw", "jpy", "cny"]); // 주요 화폐들
+let chartInstance = null;
+const selectedCurrency = ref(null); // 마지막으로 선택된 To Currency 저장
 
+// 달러 환율 기준으로 변환된 데이터를 얻는 함수
+const getCurrencyComparisonData = () => {
+  const usdToSelectedCurrencyRate = rates.value["usd"];
+  if (usdToSelectedCurrencyRate) {
+    return majorCurrencies.value.map((currency) => {
+      const rate = rates.value[currency];
+      return currency === "usd" ? 1 : rate / usdToSelectedCurrencyRate;
+    });
+  } else {
+    return majorCurrencies.value.map(() => 0);
+  }
+};
+
+// fetchCurrencyRates 함수로 환율을 가져오기
 const fetchCurrencyRates = async () => {
   try {
     const response = await fetch(
       `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${fromCurrency.value}.json`
     );
     const result = await response.json();
-    rates.value = result[fromCurrency.value];
-    date.value = result.date;
+
+    if (result && result[fromCurrency.value]) {
+      rates.value = result[fromCurrency.value];
+      date.value = result.date;
+
+      if (chartInstance) {
+        updateChart();
+      }
+    } else {
+      console.error("Invalid data received:", result);
+    }
   } catch (error) {
     console.error("Error fetching currency rates:", error);
   }
 };
 
-// 결과보여줄부분
+// updateConversion 함수
 const updateConversion = () => {
   const fromIsCrypto = data.cryptocurrencies[fromCurrency.value] !== undefined;
   const toIsCrypto = data.cryptocurrencies[toCurrency.value] !== undefined;
@@ -155,16 +185,113 @@ const updateConversion = () => {
   if (!isNaN(fiatAmount.value) && rate) {
     const result = (fiatAmount.value * rate).toFixed(2);
     conversionResult.value = `${fiatAmount.value} ${fromData.symbol} (${fromData.name}) = ${result} ${toData.symbol} (${toData.name})`;
+
+    // 마지막 To Currency만 추가하고, 이전 선택은 제거
+    if (
+      selectedCurrency.value &&
+      majorCurrencies.value.includes(selectedCurrency.value)
+    ) {
+      majorCurrencies.value.pop(); // 이전 선택 제거
+    }
+
+    // 새로운 선택된 To Currency 추가
+    selectedCurrency.value = toCurrency.value;
+    majorCurrencies.value.push(selectedCurrency.value);
+
+    // 차트 업데이트
+    updateChart();
   } else {
     conversionResult.value = "Invalid input or currency rate not available.";
   }
 };
 
-// 통화 변경 시 환율 갱신
-watch(fromCurrency, fetchCurrencyRates);
-watch(toCurrency, fetchCurrencyRates);
+// 차트 업데이트 함수
+const updateChart = () => {
+  const comparisonData = getCurrencyComparisonData();
 
-fetchCurrencyRates(); // 초기화 시 첫 번째 화폐의 환율 가져오기
+  if (chartInstance) {
+    chartInstance.data.labels = majorCurrencies.value.map((currency) => {
+      return currency === fromCurrency.value
+        ? `${data.fiatCurrencies[currency]?.name || currency} (Selected)`
+        : data.fiatCurrencies[currency]?.name || currency;
+    });
+
+    // 데이터와 색상 업데이트 (사용자가 선택한 화폐는 다른 색으로 강조)
+    chartInstance.data.datasets[0].data = comparisonData;
+    chartInstance.data.datasets[0].backgroundColor = majorCurrencies.value.map(
+      (currency) => {
+        return currency === selectedCurrency.value
+          ? "rgba(255, 99, 132, 0.2)" // 선택된 화폐는 빨간색
+          : "rgba(54, 162, 235, 0.2)"; // 나머지는 파란색
+      }
+    );
+    chartInstance.data.datasets[0].borderColor = majorCurrencies.value.map(
+      (currency) => {
+        return currency === selectedCurrency.value
+          ? "rgba(255, 99, 132, 1)" // 선택된 화폐는 빨간색
+          : "rgba(54, 162, 235, 1)"; // 나머지는 파란색
+      }
+    );
+    chartInstance.update();
+  }
+};
+
+// 차트 생성 함수
+const createChart = () => {
+  const ctx = document.getElementById("comparisonChart").getContext("2d");
+
+  chartInstance = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: majorCurrencies.value.map((currency) => {
+        return currency === fromCurrency.value
+          ? `${data.fiatCurrencies[currency]?.name || currency} (Selected)`
+          : data.fiatCurrencies[currency]?.name || currency;
+      }),
+      datasets: [
+        {
+          label: `Exchange Rate: ${fromCurrency.value} per 1 USD`,
+          data: getCurrencyComparisonData(),
+          backgroundColor: majorCurrencies.value.map((currency) => {
+            return currency === selectedCurrency.value
+              ? "rgba(255, 99, 132, 0.2)" // 선택된 화폐는 빨간색
+              : "rgba(54, 162, 235, 0.2)"; // 나머지는 파란색
+          }),
+          borderColor: majorCurrencies.value.map((currency) => {
+            return currency === selectedCurrency.value
+              ? "rgba(255, 99, 132, 1)" // 선택된 화폐는 빨간색
+              : "rgba(54, 162, 235, 1)"; // 나머지는 파란색
+          }),
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          type: "logarithmic", // 로그 스케일 적용
+          beginAtZero: false,
+          ticks: {
+            min: 0.1, // 로그 스케일이기 때문에 0은 사용하지 않음
+          },
+        },
+      },
+    },
+  });
+};
+
+// 초기화 시 첫 번째 화폐의 환율 가져오기
+onMounted(() => {
+  fetchCurrencyRates();
+  createChart();
+});
+
+// 통화 변경 시 환율 갱신
+watch([fromCurrency, toCurrency], async (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    await fetchCurrencyRates();
+  }
+});
 </script>
 
 <style scoped>
