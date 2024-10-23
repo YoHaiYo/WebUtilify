@@ -17,7 +17,7 @@
     "sass": "^1.77.6",
     "vue": "^3.4.21",
     "vue-chartjs": "^5.3.1",
-    "vue-meta": "^2.4.0",
+    "vue-meta": "^3.0.0-alpha.2",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
