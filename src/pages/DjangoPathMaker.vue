@@ -19,6 +19,11 @@
           <code class="text-pink-500">href="static/myfile.css"</code> will be
           transformed into
           <code class="text-pink-500">href="{% static 'myfile.css' %}"</code>.
+          <br />
+          And,
+          <code class="text-pink-500">a href="/insert/index.html"</code> will be
+          transformed into
+          <code class="text-pink-500">a href="{% url 'index' %}"</code>.
         </p>
       </div>
 
@@ -91,17 +96,26 @@ const processHtml = () => {
   // 특수문자 이스케이프 처리
   let escapedHtml = escapeHtml(processedHtml);
 
-  // if (!processedHtml.includes("{% load static %}")) {
-  //   escapedHtml = "{% load static %}\n" + escapedHtml;
-  // }
-
-  // 변경된 부분을 하이라이트 처리
+  // static 변환 대신 url로 a 태그 변환 처리
   escapedHtml = escapedHtml.replace(/href="([^"]*)"/g, (match, p1) => {
-    let cleanedPath = p1.replace(/^[^static]*static\/?/, "");
-    let highlighted = `<span class="bg-pink-500">href="{% static '${cleanedPath}' %}"</span>`;
-    return highlighted;
+    // http 또는 https로 시작되는 링크는 건너뜀
+    if (p1.startsWith("http") || p1.startsWith("https")) {
+      return match;
+    }
+
+    // .html 파일 경로에서 .html 앞부분만 추출
+    let cleanedPath = p1.match(/\/?(\w+)\.html$/);
+    if (cleanedPath) {
+      let pageName = cleanedPath[1];
+      let highlighted = `<span class="bg-pink-500">href="{% url '${pageName}' %}"</span>`;
+      return highlighted;
+    }
+
+    // 그 외는 변환하지 않음
+    return match;
   });
 
+  // src 태그는 기존 static 변환 그대로 유지
   escapedHtml = escapedHtml.replace(/src="([^"]*)"/g, (match, p1) => {
     let cleanedPath = p1.replace(/^[^static]*static\/?/, "");
     let highlighted = `<span class="bg-pink-500">src="{% static '${cleanedPath}' %}"</span>`;
