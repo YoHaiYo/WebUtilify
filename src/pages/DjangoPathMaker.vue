@@ -23,6 +23,21 @@
       </div>
 
       <div class="flex flex-col lg:flex-row overflow-hidden">
+        <div class="bg-gray-800 p-4 flex flex-col w-full">
+          <div class="flex justify-between items-center mb-2">
+            <h2 class="text-xl font-semibold text-gray-300 mb-2">
+              For copy short something
+            </h2>
+          </div>
+          <textarea
+            class="flex-grow p-2 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+{% load static %}</textarea
+          >
+        </div>
+      </div>
+
+      <div class="flex flex-col lg:flex-row overflow-hidden">
         <div class="left-panel bg-gray-800 p-4 flex flex-col w-full lg:w-1/2">
           <div class="flex justify-between items-center mb-2">
             <h2 class="text-xl font-semibold text-gray-300 mb-2">Input HTML</h2>
@@ -76,9 +91,9 @@ const processHtml = () => {
   // 특수문자 이스케이프 처리
   let escapedHtml = escapeHtml(processedHtml);
 
-  if (!processedHtml.includes("{% load static %}")) {
-    escapedHtml = "{% load static %}\n" + escapedHtml;
-  }
+  // if (!processedHtml.includes("{% load static %}")) {
+  //   escapedHtml = "{% load static %}\n" + escapedHtml;
+  // }
 
   // 변경된 부분을 하이라이트 처리
   escapedHtml = escapedHtml.replace(/href="([^"]*)"/g, (match, p1) => {
